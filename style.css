@@ -36,8 +36,14 @@ body {
   color: var(--background-color-light);
 }
 
-span#turn {
+span#turnt {
   margin-bottom: 1rem;
+}
+
+span#turnb {
+  margin-top: 1rem;
+
+  rotate: 180deg;
 }
 
 div#game {

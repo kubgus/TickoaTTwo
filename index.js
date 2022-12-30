@@ -1,7 +1,8 @@
 import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 
 const Fields = document.getElementsByClassName("field");
-const TurnText = document.getElementById("turn");
+const TurnTextTop = document.getElementById("turnt");
+const TurnTextBottom = document.getElementById("turnb");
 
 // player properties
 const Players = [{ symbol: "┃", span: "v", color: "rgb(0, 106, 255)" }, { symbol: "━", span: "h", color: "red" }];
@@ -11,7 +12,8 @@ let complete = [false, false, false, false, false, false, false, false, false];
 
 // turn management
 let turn = Math.round(Math.random());
-TurnText.innerHTML = getTurnText(Players[turn].symbol, Players[turn].color);
+
+setTurnText(getTurnText(Players[turn].symbol, Players[turn].color));
 
 checkSelectable(Fields);
 
@@ -54,14 +56,14 @@ for (const field of Fields) {
 
                 // change turn player
                 turn = opposite(turn);
-                TurnText.innerHTML = getTurnText(Players[turn].symbol, Players[turn].color);
+                setTurnText(getTurnText(Players[turn].symbol, Players[turn].color));
 
                 checkSelectable(Fields);
             }
         }
 
         if (win) {
-            TurnText.innerHTML = `🏆 <span style="color:${Players[opposite(turn)].color};">${Players[opposite(turn)].symbol}</span> 🏆`;
+            setTurnText(`🏆 <span style="color:${Players[opposite(turn)].color};">${Players[opposite(turn)].symbol}</span> 🏆`);
             removeTemporaryClasses();
             confetti();
         }
@@ -71,6 +73,11 @@ for (const field of Fields) {
 
 function opposite(turn) {
     return turn == 0 ? 1 : 0;
+}
+
+function setTurnText(text) {
+    TurnTextTop.innerHTML = text;
+    TurnTextBottom.innerHTML = text;
 }
 
 function getTurnText(symbol, color) {
